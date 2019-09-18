@@ -1,6 +1,5 @@
 
 var start = 0;
-var running = false;
 var result = 'https://m.zhundao.net/event/';
 var baseUrl = 'https://open.zhundao.net/api/PerBase/GetSingleActivity?accesskey=undefined&from=web&activityId=';
 var timer;
@@ -19,11 +18,11 @@ getData = function (url) {
             window.clearTimeout(timer);
             timer = setTimeout(function () { run(start) }, 10000);
         }
-        else {
-            start -= 1;
-            window.clearTimeout(timer);
-            timer = setTimeout(function () { run(start) }, 10000);
-        }
+        // else {
+        //     start -= 1;
+        //     window.clearTimeout(timer);
+        //     timer = setTimeout(function () { run(start) }, 10000);
+        // }
     }
 }
 
@@ -50,12 +49,10 @@ getResponse = function (responseText) {
     console.log(response.Data.Title, response.Data.ID);
     if (response.Data && isParking(response.Data.Title, response.Data.Address)) {
         result += response.Data.ID;
-        running = false;
         sendMsg(result);
         window.clearTimeout(timer);
     }
     else {
-        running = true;
         start -= 1;
         window.clearTimeout(timer)
         timer = setTimeout(function () { run(start) }, 10000);
@@ -82,16 +79,11 @@ run = function (startId) {
         start = startId;
     }
     sendMsg('Running......');
-    running = true;
-    while (running) {
-        running = false;
-        let url = generateUrl(start);
-        getData(url);
-    }
+    let url = generateUrl(start);
+    getData(url);
 }
 
 stop = function () {
-    running = false;
     window.clearTimeout(timer);
     sendMsg('Start');
 }

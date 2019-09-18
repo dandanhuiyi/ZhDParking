@@ -41,13 +41,13 @@ generateUrl = function (start) {
 
 
 isParking = function (title, address) {
-    return title.includes('车位') || address.includes('中软')
+    return title.includes('中软') || address.includes('中软')
 }
 
 
 getResponse = function (responseText) {
     var response = JSON.parse(responseText);
-    console.log(response.Data.Title);
+    console.log(response.Data.Title, response.Data.ID);
     if (response.Data && isParking(response.Data.Title, response.Data.Address)) {
         result += response.Data.ID;
         running = false;
@@ -90,7 +90,8 @@ run = function (startId) {
     }
 }
 
-stop = function (){
+stop = function () {
     running = false;
     window.clearTimeout(timer);
+    sendMsg('Start');
 }

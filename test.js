@@ -39,15 +39,15 @@ generateUrl = function (start) {
 
 
 
-isParking = function (title, address) {
-    return title.includes('中软') || address.includes('中软')
+isParking = function (title, address, userId) {
+    return title.includes('中软') || address.includes('中软') || userId == 1961233
 }
 
 
 getResponse = function (responseText) {
     var response = JSON.parse(responseText);
     console.log(response.Data.Title, response.Data.ID);
-    if (response.Data && isParking(response.Data.Title, response.Data.Address)) {
+    if (response.Data && isParking(response.Data.Title, response.Data.Address, response.Data.UserID)) {
         result += response.Data.ID;
         sendMsg(result);
         window.clearTimeout(timer);

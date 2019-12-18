@@ -78,6 +78,12 @@ run = function (startId) {
     else {
         start = startId;
     }
+    var stopValue = document.getElementsByName('stop')[0].value;
+    if (startId == stopValue) {
+        console.log('Stop ' + startId);
+        stop();
+        return;
+    }
     sendMsg('Running......');
     let url = generateUrl(start);
     getData(url);

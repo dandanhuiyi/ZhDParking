@@ -16,7 +16,7 @@ getData = function (url) {
         else if (request.readyState === 4 && request.status === 500) {
             start -= 1;
             window.clearTimeout(timer);
-            timer = setTimeout(function () { run(start) }, 10000);
+            timer = setTimeout(function () { run(start) }, Math.round(Math.random() * 10) * 1000);
         }
         // else {
         //     start -= 1;
@@ -55,7 +55,7 @@ getResponse = function (responseText) {
     else {
         start -= 1;
         window.clearTimeout(timer)
-        timer = setTimeout(function () { run(start) }, 10000);
+        timer = setTimeout(function () { run(start) }, Math.round(Math.random() * 10) * 1000);
     }
 }
 
